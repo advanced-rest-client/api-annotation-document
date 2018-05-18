@@ -8,10 +8,6 @@
  *   api-annotation-document.html
  */
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-repeat.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-
 declare namespace ApiElements {
 
   /**
