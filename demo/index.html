@@ -20,14 +20,18 @@
     <dom-bind id="demo">
       <template is="dom-bind">
         <div class="vertical-section-container centered" role="main">
-          <api-annotation-document></api-annotation-document>
+          <api-annotation-document shape="[[shape]]"></api-annotation-document>
         </div>
       </template>
     </dom-bind>
     <script>
     (function(app) {
       app._load = function() {
-
+        fetch('./amf-model.json')
+        .then((response) => response.json())
+        .then((data) => {
+          app.shape = data;
+        });
       };
       window.addEventListener('WebComponentsReady', () => app._load());
     })(document.getElementById('demo'));
