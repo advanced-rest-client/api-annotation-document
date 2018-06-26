@@ -22,7 +22,7 @@
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^2.0.0",
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "amf-helper-mixin": "advanced-rest-client/amf-helper-mixin#^2.0.0"
+    "amf-helper-mixin": "advanced-rest-client/amf-helper-mixin#^2.0.1"
   },
   "repository": {
     "type": "git",
