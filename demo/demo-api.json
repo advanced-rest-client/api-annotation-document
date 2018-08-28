@@ -9,7 +9,7 @@
     ],
     "http://a.ml/vocabularies/document#encodes": [
       {
-        "@id": "amf://id#35",
+        "@id": "amf://id#45",
         "@type": [
           "http://schema.org/WebAPI",
           "http://a.ml/vocabularies/document#RootDomainElement",
@@ -22,7 +22,7 @@
         ],
         "http://a.ml/vocabularies/http#server": [
           {
-            "@id": "amf://id#36",
+            "@id": "amf://id#46",
             "@type": [
               "http://a.ml/vocabularies/http#Server",
               "http://a.ml/vocabularies/document#DomainElement"
@@ -515,28 +515,58 @@
       {
         "@id": "amf://id#26",
         "@type": [
-          "http://a.ml/vocabularies/shapes#ArrayShape",
+          "http://www.w3.org/ns/shacl#NodeShape",
           "http://www.w3.org/ns/shacl#Shape",
           "http://a.ml/vocabularies/shapes#Shape",
           "http://a.ml/vocabularies/document#DomainElement"
         ],
-        "http://a.ml/vocabularies/shapes#items": [
+        "http://www.w3.org/ns/shacl#closed": [
+          {
+            "@value": false
+          }
+        ],
+        "http://www.w3.org/ns/shacl#property": [
           {
             "@id": "amf://id#29",
             "@type": [
-              "http://a.ml/vocabularies/shapes#ScalarShape",
+              "http://www.w3.org/ns/shacl#PropertyShape",
               "http://www.w3.org/ns/shacl#Shape",
-              "http://a.ml/vocabularies/shapes#Shape",
-              "http://a.ml/vocabularies/document#DomainElement"
+              "http://a.ml/vocabularies/shapes#Shape"
             ],
-            "http://www.w3.org/ns/shacl#datatype": [
+            "http://www.w3.org/ns/shacl#path": [
               {
-                "@id": "http://www.w3.org/2001/XMLSchema#date"
+                "@id": "http://a.ml/vocabularies/data#test"
+              }
+            ],
+            "http://a.ml/vocabularies/shapes#range": [
+              {
+                "@id": "amf://id#30",
+                "@type": [
+                  "http://a.ml/vocabularies/shapes#ScalarShape",
+                  "http://www.w3.org/ns/shacl#Shape",
+                  "http://a.ml/vocabularies/shapes#Shape",
+                  "http://a.ml/vocabularies/document#DomainElement"
+                ],
+                "http://www.w3.org/ns/shacl#datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#name": [
+                  {
+                    "@value": "test"
+                  }
+                ]
+              }
+            ],
+            "http://www.w3.org/ns/shacl#minCount": [
+              {
+                "@value": 1
               }
             ],
             "http://www.w3.org/ns/shacl#name": [
               {
-                "@value": "items"
+                "@value": "test"
               }
             ]
           }
@@ -570,7 +600,7 @@
         ]
       },
       {
-        "@id": "amf://id#30",
+        "@id": "amf://id#31",
         "@type": [
           "http://www.w3.org/ns/shacl#NodeShape",
           "http://www.w3.org/ns/shacl#Shape",
@@ -584,7 +614,7 @@
         ],
         "http://www.w3.org/ns/shacl#property": [
           {
-            "@id": "amf://id#33",
+            "@id": "amf://id#34",
             "@type": [
               "http://www.w3.org/ns/shacl#PropertyShape",
               "http://www.w3.org/ns/shacl#Shape",
@@ -597,7 +627,7 @@
             ],
             "http://a.ml/vocabularies/shapes#range": [
               {
-                "@id": "amf://id#34",
+                "@id": "amf://id#35",
                 "@type": [
                   "http://a.ml/vocabularies/shapes#ScalarShape",
                   "http://www.w3.org/ns/shacl#Shape",
@@ -639,7 +669,7 @@
               "@value": "clearanceLevel"
             }
           ],
-          "@id": "amf://id#32",
+          "@id": "amf://id#33",
           "@type": [
             "http://a.ml/vocabularies/data#Object"
           ],
@@ -673,6 +703,155 @@
           ]
         },
         "http://a.ml/vocabularies/document#customDomainProperties": [
+          {
+            "@id": "amf://id#5"
+          }
+        ]
+      },
+      {
+        "@id": "amf://id#36",
+        "@type": [
+          "http://www.w3.org/ns/shacl#NodeShape",
+          "http://www.w3.org/ns/shacl#Shape",
+          "http://a.ml/vocabularies/shapes#Shape",
+          "http://a.ml/vocabularies/document#DomainElement"
+        ],
+        "http://www.w3.org/ns/shacl#closed": [
+          {
+            "@value": false
+          }
+        ],
+        "http://www.w3.org/ns/shacl#property": [
+          {
+            "@id": "amf://id#43",
+            "@type": [
+              "http://www.w3.org/ns/shacl#PropertyShape",
+              "http://www.w3.org/ns/shacl#Shape",
+              "http://a.ml/vocabularies/shapes#Shape"
+            ],
+            "http://www.w3.org/ns/shacl#path": [
+              {
+                "@id": "http://a.ml/vocabularies/data#test"
+              }
+            ],
+            "http://a.ml/vocabularies/shapes#range": [
+              {
+                "@id": "amf://id#44",
+                "@type": [
+                  "http://a.ml/vocabularies/shapes#ScalarShape",
+                  "http://www.w3.org/ns/shacl#Shape",
+                  "http://a.ml/vocabularies/shapes#Shape",
+                  "http://a.ml/vocabularies/document#DomainElement"
+                ],
+                "http://www.w3.org/ns/shacl#datatype": [
+                  {
+                    "@id": "http://www.w3.org/2001/XMLSchema#string"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#name": [
+                  {
+                    "@value": "test"
+                  }
+                ]
+              }
+            ],
+            "http://www.w3.org/ns/shacl#minCount": [
+              {
+                "@value": 1
+              }
+            ],
+            "http://www.w3.org/ns/shacl#name": [
+              {
+                "@value": "test"
+              }
+            ]
+          }
+        ],
+        "http://www.w3.org/ns/shacl#name": [
+          {
+            "@value": "ComboType"
+          }
+        ],
+        "amf://id#1": {
+          "http://a.ml/vocabularies/document#name": [
+            {
+              "@value": "annotationTest"
+            }
+          ],
+          "@id": "amf://id#38",
+          "@type": [
+            "http://a.ml/vocabularies/data#Scalar"
+          ],
+          "http://a.ml/vocabularies/data#value": [
+            {
+              "@value": "",
+              "@type": "http://www.w3.org/2001/XMLSchema#nil"
+            }
+          ]
+        },
+        "amf://id#3": {
+          "http://a.ml/vocabularies/document#name": [
+            {
+              "@value": "deprecated"
+            }
+          ],
+          "@id": "amf://id#40",
+          "@type": [
+            "http://a.ml/vocabularies/data#Scalar"
+          ],
+          "http://a.ml/vocabularies/data#value": [
+            {
+              "@value": "This is deprecated annotation",
+              "@type": "http://www.w3.org/2001/XMLSchema#string"
+            }
+          ]
+        },
+        "amf://id#5": {
+          "http://a.ml/vocabularies/document#name": [
+            {
+              "@value": "clearanceLevel"
+            }
+          ],
+          "@id": "amf://id#42",
+          "@type": [
+            "http://a.ml/vocabularies/data#Object"
+          ],
+          "http://a.ml/vocabularies/data#level": [
+            {
+              "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1/scalar_2",
+              "@type": [
+                "http://a.ml/vocabularies/data#Scalar"
+              ],
+              "http://a.ml/vocabularies/data#value": [
+                {
+                  "@value": "low",
+                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                }
+              ]
+            }
+          ],
+          "http://a.ml/vocabularies/data#signature": [
+            {
+              "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1/scalar_3",
+              "@type": [
+                "http://a.ml/vocabularies/data#Scalar"
+              ],
+              "http://a.ml/vocabularies/data#value": [
+                {
+                  "@value": "OtherSignature",
+                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                }
+              ]
+            }
+          ]
+        },
+        "http://a.ml/vocabularies/document#customDomainProperties": [
+          {
+            "@id": "amf://id#1"
+          },
+          {
+            "@id": "amf://id#3"
+          },
           {
             "@id": "amf://id#5"
           }

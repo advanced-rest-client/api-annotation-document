@@ -79,7 +79,7 @@
    * @appliesMixin ApiElements.AmfHelperMixin
    */
   class ApiAnnotationDocument extends ApiElements.AmfHelperMixin(Polymer.Element) {
-    static get is() { return 'api-annotation-document'; }
+    static get is() {return 'api-annotation-document';}
     static get properties() {
       return {
         /**
@@ -124,7 +124,8 @@
      * @param {Object} shape AMF shape or range property.
      */
     _shapeChanged(shape) {
-      const custom = shape && shape[this.ns.raml.vocabularies.document + 'customDomainProperties'];
+      const key = this._getAmfKey(this.ns.raml.vocabularies.document + 'customDomainProperties');
+      const custom = this._ensureArray(shape && shape[key]);
       const has = !!(custom && custom.length);
       this._setHasCustomProperties(has);
       if (!has) {
@@ -153,11 +154,7 @@
     }
 
     _computeName(item) {
-      const name = item && item[this.ns.raml.vocabularies.document + 'name'];
-      if (!name) {
-        return;
-      }
-      return name[0]['@value'];
+      return this._getValue(item, this.ns.raml.vocabularies.document + 'name');
     }
     /**
      * Tests if custom propery can have value.
@@ -169,15 +166,15 @@
       if (!this._isScalar(item)) {
         return true;
       }
-      let value = item && item[this.ns.raml.vocabularies.data + 'value'];
+      const key = this._getAmfKey(this.ns.raml.vocabularies.data + 'value');
+      let value = item && item[key];
       if (!value) {
         return false;
       }
-      value = value[0];
-      if (value['@type'] === this.ns.w3.xmlSchema + 'nil') {
-        return false;
+      if (value instanceof Array) {
+        value = value[0];
       }
-      return true;
+      return !this._hasType(value, this.ns.w3.xmlSchema + 'nil');
     }
     /**
      * Tests if value is a scalar value
@@ -186,11 +183,7 @@
      * @return {Boolean}
      */
     _isScalar(item) {
-      let type = item && item['@type'];
-      if (!type) {
-        return;
-      }
-      return type[0] === this.ns.raml.vocabularies.data + 'Scalar';
+      return this._hasType(item, this.ns.raml.vocabularies.data + 'Scalar');
     }
     /**
      * Computes scalar value for the item.
@@ -202,11 +195,7 @@
       if (item instanceof Array) {
         item = item[0];
       }
-      let value = item && item[this.ns.raml.vocabularies.data + 'value'];
-      if (!value) {
-        return;
-      }
-      return value[0]['@value'];
+      return this._getValue(item, this.ns.raml.vocabularies.data + 'value');
     }
     /**
      * Computes complex (object) value for the custom property
@@ -219,13 +208,20 @@
         return;
       }
       const data = [];
+      const dataKey = this._getAmfKey(this.ns.raml.vocabularies.data);
+      const len = dataKey.length;
       Object.keys(item).forEach((key) => {
-        if (key.indexOf(this.ns.raml.vocabularies.data) === -1) {
+        if (key.indexOf(dataKey) === -1) {
           return;
+        }
+        let label = key.substr(len);
+        if (label[0] === ':') {
+          // compact model does that
+          label = label.substr(1);
         }
         data.push({
           value: this._scalarValue(item[key]),
-          label: key.substr(this.ns.raml.vocabularies.data.length)
+          label
         });
       });
       return data;

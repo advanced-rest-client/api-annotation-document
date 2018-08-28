@@ -33,12 +33,23 @@ types:
         required: true
   notRequiredRepeatable:
     (annotationTest):
-    type: array
-    items: date-only
+    type: object
     required: false
+    properties:
+      test: boolean
   ComplexAnnotations:
     (clearanceLevel):
       level: high
       signature: 230-ghtwvfrs1itr
+    type: object
+    properties:
+      test: string
+  ComboType:
+    (annotationTest):
+    (deprecated): This is deprecated annotation
+    (clearanceLevel):
+      level: low
+      signature: OtherSignature
+    type: object
     properties:
       test: string
