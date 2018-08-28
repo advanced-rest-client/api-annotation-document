@@ -1,0 +1,504 @@
+{
+  "@context": {
+    "raml-http": "http://a.ml/vocabularies/http#",
+    "shacl": "http://www.w3.org/ns/shacl#",
+    "raml-shapes": "http://a.ml/vocabularies/shapes#",
+    "security": "http://a.ml/vocabularies/security#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "data": "http://a.ml/vocabularies/data#",
+    "doc": "http://a.ml/vocabularies/document#",
+    "schema-org": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "hydra": "http://www.w3.org/ns/hydra/core#"
+  },
+  "@id": "amf://id",
+  "@type": [
+    "doc:Document",
+    "doc:Fragment",
+    "doc:Module",
+    "doc:Unit"
+  ],
+  "doc:declares": [
+    {
+      "@id": "amf://id#1",
+      "@type": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+        "doc:DomainProperty",
+        "doc:DomainElement"
+      ],
+      "doc:name": "annotationTest",
+      "raml-shapes:schema": {
+        "@id": "amf://id#2",
+        "@type": [
+          "raml-shapes:NilShape",
+          "shacl:Shape",
+          "raml-shapes:Shape"
+        ],
+        "shacl:name": "annotationTest"
+      }
+    },
+    {
+      "@id": "amf://id#3",
+      "@type": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+        "doc:DomainProperty",
+        "doc:DomainElement"
+      ],
+      "doc:name": "deprecated",
+      "raml-shapes:schema": {
+        "@id": "amf://id#4",
+        "@type": [
+          "raml-shapes:ScalarShape",
+          "shacl:Shape",
+          "raml-shapes:Shape",
+          "doc:DomainElement"
+        ],
+        "shacl:datatype": {
+          "@id": "xsd:string"
+        },
+        "shacl:name": "deprecated"
+      }
+    },
+    {
+      "@id": "amf://id#5",
+      "@type": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+        "doc:DomainProperty",
+        "doc:DomainElement"
+      ],
+      "doc:name": "clearanceLevel",
+      "raml-shapes:schema": {
+        "@id": "amf://id#6",
+        "@type": [
+          "shacl:NodeShape",
+          "shacl:Shape",
+          "raml-shapes:Shape",
+          "doc:DomainElement"
+        ],
+        "shacl:closed": false,
+        "shacl:name": "schema",
+        "shacl:property": [
+          {
+            "@id": "amf://id#7",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape"
+            ],
+            "raml-shapes:range": {
+              "@id": "amf://id#8",
+              "@type": [
+                "raml-shapes:ScalarShape",
+                "shacl:Shape",
+                "raml-shapes:Shape",
+                "doc:DomainElement"
+              ],
+              "shacl:datatype": {
+                "@id": "xsd:string"
+              },
+              "shacl:in": {
+                "@id": "amf://id#8/list",
+                "@type": "rdfs:Seq",
+                "rdfs:_1": {
+                  "@id": "amf://id#9",
+                  "@type": "data:Scalar",
+                  "data:value": {
+                    "@type": "xsd:string",
+                    "@value": "low"
+                  }
+                },
+                "rdfs:_2": {
+                  "@id": "amf://id#10",
+                  "@type": "data:Scalar",
+                  "data:value": {
+                    "@type": "xsd:string",
+                    "@value": "medium"
+                  }
+                },
+                "rdfs:_3": {
+                  "@id": "amf://id#11",
+                  "@type": "data:Scalar",
+                  "data:value": {
+                    "@type": "xsd:string",
+                    "@value": "high"
+                  }
+                }
+              },
+              "shacl:name": "level"
+            },
+            "shacl:minCount": 1,
+            "shacl:name": "level",
+            "shacl:path": {
+              "@id": "data:level"
+            }
+          },
+          {
+            "@id": "amf://id#12",
+            "@type": [
+              "shacl:PropertyShape",
+              "shacl:Shape",
+              "raml-shapes:Shape"
+            ],
+            "raml-shapes:range": {
+              "@id": "amf://id#13",
+              "@type": [
+                "raml-shapes:ScalarShape",
+                "shacl:Shape",
+                "raml-shapes:Shape",
+                "doc:DomainElement"
+              ],
+              "shacl:datatype": {
+                "@id": "xsd:string"
+              },
+              "shacl:name": "signature",
+              "shacl:pattern": "^\\d{3}-\\w{12}$"
+            },
+            "shacl:minCount": 1,
+            "shacl:name": "signature",
+            "shacl:path": {
+              "@id": "data:signature"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@id": "amf://id#14",
+      "@type": [
+        "shacl:NodeShape",
+        "shacl:Shape",
+        "raml-shapes:Shape",
+        "doc:DomainElement"
+      ],
+      "amf://id#3": {
+        "@id": "amf://id#16",
+        "@type": "data:Scalar",
+        "data:value": {
+          "@type": "xsd:string",
+          "@value": "This resource type is deprecated and will be removed in the next version."
+        },
+        "doc:name": "deprecated"
+      },
+      "doc:customDomainProperties": {
+        "@id": "amf://id#3"
+      },
+      "schema-org:description": "A response that is errored",
+      "shacl:closed": false,
+      "shacl:name": "ErrorResource",
+      "shacl:property": [
+        {
+          "@id": "amf://id#17",
+          "@type": [
+            "shacl:PropertyShape",
+            "shacl:Shape",
+            "raml-shapes:Shape"
+          ],
+          "raml-shapes:range": {
+            "@id": "amf://id#18",
+            "@type": [
+              "raml-shapes:ScalarShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "doc:examples": {
+              "@id": "amf://id#20",
+              "@type": [
+                "doc:Example",
+                "doc:DomainElement"
+              ],
+              "doc:strict": true,
+              "doc:structuredValue": {
+                "@id": "amf://id#21",
+                "@type": "data:Scalar",
+                "data:value": {
+                  "@type": "xsd:boolean",
+                  "@value": "true"
+                }
+              },
+              "shacl:raw": "true"
+            },
+            "schema-org:description": "Indicate that the response is errored.",
+            "shacl:datatype": {
+              "@id": "xsd:boolean"
+            },
+            "shacl:defaultValue": {
+              "@id": "amf://id#19",
+              "@type": "data:Scalar",
+              "data:value": {
+                "@type": "xsd:boolean",
+                "@value": "true"
+              }
+            },
+            "shacl:defaultValueStr": "true",
+            "shacl:name": "error"
+          },
+          "shacl:minCount": 1,
+          "shacl:name": "error",
+          "shacl:path": {
+            "@id": "data:error"
+          }
+        },
+        {
+          "@id": "amf://id#22",
+          "@type": [
+            "shacl:PropertyShape",
+            "shacl:Shape",
+            "raml-shapes:Shape"
+          ],
+          "raml-shapes:range": {
+            "@id": "amf://id#23",
+            "@type": [
+              "raml-shapes:ScalarShape",
+              "shacl:Shape",
+              "raml-shapes:Shape",
+              "doc:DomainElement"
+            ],
+            "doc:examples": {
+              "@id": "amf://id#24",
+              "@type": [
+                "doc:Example",
+                "doc:DomainElement"
+              ],
+              "doc:strict": true,
+              "doc:structuredValue": {
+                "@id": "amf://id#25",
+                "@type": "data:Scalar",
+                "data:value": {
+                  "@type": "xsd:string",
+                  "@value": "<<example>>"
+                }
+              },
+              "shacl:raw": "<<example>>"
+            },
+            "schema-org:description": "The error message associated with the error.",
+            "shacl:datatype": {
+              "@id": "xsd:string"
+            },
+            "shacl:name": "message"
+          },
+          "shacl:minCount": 1,
+          "shacl:name": "message",
+          "shacl:path": {
+            "@id": "data:message"
+          }
+        }
+      ]
+    },
+    {
+      "@id": "amf://id#26",
+      "@type": [
+        "shacl:NodeShape",
+        "shacl:Shape",
+        "raml-shapes:Shape",
+        "doc:DomainElement"
+      ],
+      "amf://id#1": {
+        "@id": "amf://id#28",
+        "@type": "data:Scalar",
+        "data:value": {
+          "@type": "xsd:nil",
+          "@value": ""
+        },
+        "doc:name": "annotationTest"
+      },
+      "doc:customDomainProperties": {
+        "@id": "amf://id#1"
+      },
+      "shacl:closed": false,
+      "shacl:name": "notRequiredRepeatable",
+      "shacl:property": {
+        "@id": "amf://id#29",
+        "@type": [
+          "shacl:PropertyShape",
+          "shacl:Shape",
+          "raml-shapes:Shape"
+        ],
+        "raml-shapes:range": {
+          "@id": "amf://id#30",
+          "@type": [
+            "raml-shapes:ScalarShape",
+            "shacl:Shape",
+            "raml-shapes:Shape",
+            "doc:DomainElement"
+          ],
+          "shacl:datatype": {
+            "@id": "xsd:boolean"
+          },
+          "shacl:name": "test"
+        },
+        "shacl:minCount": 1,
+        "shacl:name": "test",
+        "shacl:path": {
+          "@id": "data:test"
+        }
+      }
+    },
+    {
+      "@id": "amf://id#31",
+      "@type": [
+        "shacl:NodeShape",
+        "shacl:Shape",
+        "raml-shapes:Shape",
+        "doc:DomainElement"
+      ],
+      "amf://id#5": {
+        "@id": "amf://id#33",
+        "@type": "data:Object",
+        "data:level": {
+          "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComplexAnnotations/clearanceLevel/object_1/scalar_2",
+          "@type": "data:Scalar",
+          "data:value": {
+            "@type": "xsd:string",
+            "@value": "high"
+          }
+        },
+        "data:signature": {
+          "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComplexAnnotations/clearanceLevel/object_1/scalar_3",
+          "@type": "data:Scalar",
+          "data:value": {
+            "@type": "xsd:string",
+            "@value": "230-ghtwvfrs1itr"
+          }
+        },
+        "doc:name": "clearanceLevel"
+      },
+      "doc:customDomainProperties": {
+        "@id": "amf://id#5"
+      },
+      "shacl:closed": false,
+      "shacl:name": "ComplexAnnotations",
+      "shacl:property": {
+        "@id": "amf://id#34",
+        "@type": [
+          "shacl:PropertyShape",
+          "shacl:Shape",
+          "raml-shapes:Shape"
+        ],
+        "raml-shapes:range": {
+          "@id": "amf://id#35",
+          "@type": [
+            "raml-shapes:ScalarShape",
+            "shacl:Shape",
+            "raml-shapes:Shape",
+            "doc:DomainElement"
+          ],
+          "shacl:datatype": {
+            "@id": "xsd:string"
+          },
+          "shacl:name": "test"
+        },
+        "shacl:minCount": 1,
+        "shacl:name": "test",
+        "shacl:path": {
+          "@id": "data:test"
+        }
+      }
+    },
+    {
+      "@id": "amf://id#36",
+      "@type": [
+        "shacl:NodeShape",
+        "shacl:Shape",
+        "raml-shapes:Shape",
+        "doc:DomainElement"
+      ],
+      "amf://id#1": {
+        "@id": "amf://id#38",
+        "@type": "data:Scalar",
+        "data:value": {
+          "@type": "xsd:nil",
+          "@value": ""
+        },
+        "doc:name": "annotationTest"
+      },
+      "amf://id#3": {
+        "@id": "amf://id#40",
+        "@type": "data:Scalar",
+        "data:value": {
+          "@type": "xsd:string",
+          "@value": "This is deprecated annotation"
+        },
+        "doc:name": "deprecated"
+      },
+      "amf://id#5": {
+        "@id": "amf://id#42",
+        "@type": "data:Object",
+        "data:level": {
+          "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1/scalar_2",
+          "@type": "data:Scalar",
+          "data:value": {
+            "@type": "xsd:string",
+            "@value": "low"
+          }
+        },
+        "data:signature": {
+          "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1/scalar_3",
+          "@type": "data:Scalar",
+          "data:value": {
+            "@type": "xsd:string",
+            "@value": "OtherSignature"
+          }
+        },
+        "doc:name": "clearanceLevel"
+      },
+      "doc:customDomainProperties": [
+        {
+          "@id": "amf://id#1"
+        },
+        {
+          "@id": "amf://id#3"
+        },
+        {
+          "@id": "amf://id#5"
+        }
+      ],
+      "shacl:closed": false,
+      "shacl:name": "ComboType",
+      "shacl:property": {
+        "@id": "amf://id#43",
+        "@type": [
+          "shacl:PropertyShape",
+          "shacl:Shape",
+          "raml-shapes:Shape"
+        ],
+        "raml-shapes:range": {
+          "@id": "amf://id#44",
+          "@type": [
+            "raml-shapes:ScalarShape",
+            "shacl:Shape",
+            "raml-shapes:Shape",
+            "doc:DomainElement"
+          ],
+          "shacl:datatype": {
+            "@id": "xsd:string"
+          },
+          "shacl:name": "test"
+        },
+        "shacl:minCount": 1,
+        "shacl:name": "test",
+        "shacl:path": {
+          "@id": "data:test"
+        }
+      }
+    }
+  ],
+  "doc:encodes": {
+    "@id": "amf://id#45",
+    "@type": [
+      "schema-org:WebAPI",
+      "doc:RootDomainElement",
+      "doc:DomainElement"
+    ],
+    "raml-http:server": {
+      "@id": "amf://id#46",
+      "@type": [
+        "raml-http:Server",
+        "doc:DomainElement"
+      ],
+      "raml-http:url": "http://api.domain.com/"
+    },
+    "schema-org:name": "Annotation API",
+    "schema-org:version": "v1"
+  }
+}
