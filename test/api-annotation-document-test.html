@@ -19,187 +19,138 @@
   <script>
   /* global AmfLoader */
   suite('api-annotation-document', () => {
-    function getType(element, index) {
+    function getType(element, name) {
       const declares = element._computeDeclares(element.amfModel);
-      const type = element._getAmfKey(element.ns.w3.shacl.name + 'NodeShape');
-      let loopIndex = -1;
       for (let i = 0, len = declares.length; i < len; i++) {
-        if (element._hasType(declares[i], type)) {
-          loopIndex++;
-          if (index === loopIndex) {
-            return declares[i];
-          }
+        const typeName = element._getValue(declares[i], element.ns.w3.shacl.name + 'name');
+        if (typeName && name === typeName) {
+          return declares[i];
         }
       }
     }
 
-    suite('Full data model', () => {
-      let amfModel;
-      suiteSetup(() => {
-        return AmfLoader.load()
-        .then((data) => {
-          amfModel = data;
-        });
-      });
+    [
+      ['Full data model', false],
+      ['Compact model', true]
+    ].forEach((item) => {
+      suite(item[0], () => {
+        suite('Model computations', () => {
+          let amfModel;
+          suiteSetup(() => {
+            return AmfLoader.load()
+            .then((data) => {
+              amfModel = data;
+            });
+          });
 
-      let element;
-      setup(() => {
-        element = fixture('Basic');
-        element.amfModel = amfModel;
-      });
+          let element;
+          setup(() => {
+            element = fixture('Basic');
+            element.amfModel = amfModel;
+          });
 
-      test('Computes hasCustomProperties', () => {
-        element.shape = getType(element, 0);
-        assert.isTrue(element.hasCustomProperties);
-      });
+          test('Computes hasCustomProperties when no annotations', () => {
+            element.shape = getType(element, 'NoAnnotations');
+            assert.isFalse(element.hasCustomProperties);
+          });
 
-      test('Computes customList', () => {
-        element.shape = getType(element, 3);
-        assert.typeOf(element.customList, 'array');
-        assert.lengthOf(element.customList, 3);
-      });
+          test('Computes hasCustomProperties when has annotations', () => {
+            element.shape = getType(element, 'notRequiredRepeatable');
+            assert.isTrue(element.hasCustomProperties);
+          });
 
-      test('Renders nil annotation', (done) => {
-        element.shape = getType(element, 1);
-        flush(() => {
-          const node = element.shadowRoot.querySelectorAll('.custom-prtoperty')[0];
-          assert.ok(node, 'Annotation container is rendered');
-          const label = node.querySelector('.name');
-          assert.ok(label, 'Annotation label is rendered');
-          const labelValue = label.innerText.toLowerCase();
-          assert.equal(labelValue, 'annotationtest');
-          done();
-        });
-      });
+          test('Computes customList', () => {
+            element.shape = getType(element, 'ComboType');
+            assert.typeOf(element.customList, 'array');
+            assert.lengthOf(element.customList, 3);
+          });
 
-      test('Nil annotation does not have value', (done) => {
-        element.shape = getType(element, 1);
-        flush(() => {
-          const node = element.shadowRoot.querySelector('.custom-prtoperty');
-          assert.ok(node, 'Annotation container is rendered');
-          const value = node.querySelector('.value');
-          assert.notOk(value, 'Annotation value is not rendered');
-          done();
-        });
-      });
+          test('Renders nil annotation', (done) => {
+            element.shape = getType(element, 'notRequiredRepeatable');
+            flush(() => {
+              const node = element.shadowRoot.querySelectorAll('.custom-prtoperty')[0];
+              assert.ok(node, 'Annotation container is rendered');
+              const label = node.querySelector('.name');
+              assert.ok(label, 'Annotation label is rendered');
+              const labelValue = label.innerText.toLowerCase();
+              assert.equal(labelValue, 'annotationtest');
+              done();
+            });
+          });
 
-      test('Renders scalar annotation', (done) => {
-        element.shape = getType(element, 0);
-        flush(() => {
-          const node = element.shadowRoot.querySelector('.custom-prtoperty');
-          assert.ok(node, 'Annotation container is rendered');
-          const label = node.querySelector('.name');
-          assert.ok(label, 'Annotation label is rendered');
-          const labelValue = label.innerText.toLowerCase();
-          assert.equal(labelValue, 'deprecated');
-          const value = node.querySelector('.value');
-          assert.ok(value, 'Annotation value is rendered');
-          const scalarList = node.querySelectorAll('.scalar-value');
-          assert.equal(scalarList.length, 1, 'Scalar value is rendered');
-          done();
-        });
-      });
+          test('Nil annotation does not have value', (done) => {
+            element.shape = getType(element, 'notRequiredRepeatable');
+            flush(() => {
+              const node = element.shadowRoot.querySelector('.custom-prtoperty');
+              assert.ok(node, 'Annotation container is rendered');
+              const value = node.querySelector('.value');
+              assert.notOk(value, 'Annotation value is not rendered');
+              done();
+            });
+          });
 
-      test('Renders complex annotation', (done) => {
-        element.shape = getType(element, 2);
-        flush(() => {
-          const node = element.shadowRoot.querySelector('.custom-prtoperty');
-          assert.ok(node, 'Annotation container is rendered');
-          const label = node.querySelector('.name');
-          assert.ok(label, 'Annotation label is rendered');
-          const labelValue = label.innerText.toLowerCase();
-          assert.equal(labelValue, 'clearancelevel');
-          const value = node.querySelector('.value');
-          assert.ok(value, 'Annotation value is rendered');
-          const scalarList = node.querySelectorAll('.scalar-value');
-          assert.equal(scalarList.length, 2, 'Scalar values list is rendered');
-          done();
+          test('Renders scalar annotation', (done) => {
+            element.shape = getType(element, 'ErrorResource');
+            flush(() => {
+              const node = element.shadowRoot.querySelector('.custom-prtoperty');
+              assert.ok(node, 'Annotation container is rendered');
+              const label = node.querySelector('.name');
+              assert.ok(label, 'Annotation label is rendered');
+              const labelValue = label.innerText.toLowerCase();
+              assert.equal(labelValue, 'deprecated');
+              const value = node.querySelector('.value');
+              assert.ok(value, 'Annotation value is rendered');
+              const scalarList = node.querySelectorAll('.scalar-value');
+              assert.equal(scalarList.length, 1, 'Scalar value is rendered');
+              done();
+            });
+          });
+
+          test('Renders complex annotation', (done) => {
+            element.shape = getType(element, 'ComplexAnnotations');
+            flush(() => {
+              const node = element.shadowRoot.querySelector('.custom-prtoperty');
+              assert.ok(node, 'Annotation container is rendered');
+              const label = node.querySelector('.name');
+              assert.ok(label, 'Annotation label is rendered');
+              const labelValue = label.innerText.toLowerCase();
+              assert.equal(labelValue, 'clearancelevel');
+              const value = node.querySelector('.value');
+              assert.ok(value, 'Annotation value is rendered');
+              const scalarList = node.querySelectorAll('.scalar-value');
+              assert.equal(scalarList.length, 2, 'Scalar values list is rendered');
+              done();
+            });
+          });
         });
       });
     });
 
-    suite('Compact model', () => {
-      let amfModel;
-      suiteSetup(() => {
-        return AmfLoader.load(true)
-        .then((data) => {
-          amfModel = data;
-        });
-      });
-
+    suite('_hasCustomChanged()', () => {
       let element;
       setup(() => {
         element = fixture('Basic');
-        element.amfModel = amfModel;
       });
 
-      test('Computes hasCustomProperties', () => {
-        element.shape = getType(element, 0);
-        assert.isTrue(element.hasCustomProperties);
+      test('Sets aria-hidden attribute when no custom properties', () => {
+        element._hasCustomChanged(false);
+        assert.equal(element.getAttribute('aria-hidden'), 'true');
       });
 
-      test('Computes customList', () => {
-        element.shape = getType(element, 3);
-        assert.typeOf(element.customList, 'array');
-        assert.lengthOf(element.customList, 3);
+      test('Sets aria-hidden attribute when no custom properties', () => {
+        element._hasCustomChanged(true);
+        assert.equal(element.getAttribute('aria-hidden'), 'false');
       });
 
-      test('Renders nil annotation', (done) => {
-        element.shape = getType(element, 1);
-        flush(() => {
-          const node = element.shadowRoot.querySelectorAll('.custom-prtoperty')[0];
-          assert.ok(node, 'Annotation container is rendered');
-          const label = node.querySelector('.name');
-          assert.ok(label, 'Annotation label is rendered');
-          const labelValue = label.innerText.toLowerCase();
-          assert.equal(labelValue, 'annotationtest');
-          done();
-        });
+      test('Removes hidden attribute', () => {
+        element.setAttribute('hidden', '');
+        element._hasCustomChanged(true);
+        assert.isFalse(element.hasAttribute('hidden'));
       });
 
-      test('Nil annotation does not have value', (done) => {
-        element.shape = getType(element, 1);
-        flush(() => {
-          const node = element.shadowRoot.querySelector('.custom-prtoperty');
-          assert.ok(node, 'Annotation container is rendered');
-          const value = node.querySelector('.value');
-          assert.notOk(value, 'Annotation value is not rendered');
-          done();
-        });
-      });
-
-      test('Renders scalar annotation', (done) => {
-        element.shape = getType(element, 0);
-        flush(() => {
-          const node = element.shadowRoot.querySelector('.custom-prtoperty');
-          assert.ok(node, 'Annotation container is rendered');
-          const label = node.querySelector('.name');
-          assert.ok(label, 'Annotation label is rendered');
-          const labelValue = label.innerText.toLowerCase();
-          assert.equal(labelValue, 'deprecated');
-          const value = node.querySelector('.value');
-          assert.ok(value, 'Annotation value is rendered');
-          const scalarList = node.querySelectorAll('.scalar-value');
-          assert.equal(scalarList.length, 1, 'Scalar value is rendered');
-          done();
-        });
-      });
-
-      test('Renders complex annotation', (done) => {
-        element.shape = getType(element, 2);
-        flush(() => {
-          const node = element.shadowRoot.querySelector('.custom-prtoperty');
-          assert.ok(node, 'Annotation container is rendered');
-          const label = node.querySelector('.name');
-          assert.ok(label, 'Annotation label is rendered');
-          const labelValue = label.innerText.toLowerCase();
-          assert.equal(labelValue, 'clearancelevel');
-          const value = node.querySelector('.value');
-          assert.ok(value, 'Annotation value is rendered');
-          const scalarList = node.querySelectorAll('.scalar-value');
-          assert.equal(scalarList.length, 2, 'Scalar values list is rendered');
-          done();
-        });
+      test('Sets hidden attribute', () => {
+        element._hasCustomChanged(false);
+        assert.isTrue(element.hasAttribute('hidden'));
       });
     });
   });
