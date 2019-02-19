@@ -8,6 +8,10 @@
     "sauce": {
       "disabled": true,
       "browsers": [{
+        "browserName": "microsoftedge",
+        "platform": "Windows 10",
+        "version": ""
+      }, {
         "browserName": "firefox",
         "platform": "Windows 10",
         "version": "latest-4"
@@ -33,11 +37,11 @@
         "version": "11.1"
       }]
     },
-    "istanbub": {
+    "istanbul": {
       "dir": "./coverage",
       "reporters": ["text-summary", "lcov"],
       "include": [
-        "**/*.html"
+        "**/*.js"
       ],
       "exclude": [
         "**/test/**",
@@ -47,8 +51,8 @@
       "thresholds": {
         "global": {
           "statements": 80,
-          "branches": 74,
-          "functions": 80,
+          "branches": 80,
+          "functions": 90,
           "lines": 80
         }
       }
