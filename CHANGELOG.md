@@ -62,3 +62,24 @@
 
 
 
+# 3.0.0 (2019-06-14)
+
+
+### Docs
+
+* Updating documentation ([2accad3828b161fe553f41915e3f20d1a7c3172f](https://github.com/advanced-rest-client/api-annotation-document/commit/2accad3828b161fe553f41915e3f20d1a7c3172f))
+
+### Fix
+
+* Fixing sauce labs configuration ([bba8a7395f60ba256d9c8c5a3fa7f5dcfe516414](https://github.com/advanced-rest-client/api-annotation-document/commit/bba8a7395f60ba256d9c8c5a3fa7f5dcfe516414))
+
+### New
+
+* Addig support for compact model ([e26f9ab64723d5b0f2413aa8d49ef2776c192f95](https://github.com/advanced-rest-client/api-annotation-document/commit/e26f9ab64723d5b0f2413aa8d49ef2776c192f95))
+
+### Update
+
+* Updated Travis configuration to connect to Sauce Labs. ([22c3312144a3fd85c71e83b89de470f3c0349494](https://github.com/advanced-rest-client/api-annotation-document/commit/22c3312144a3fd85c71e83b89de470f3c0349494))
+
+
+
