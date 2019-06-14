@@ -4,141 +4,55 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
     <title>api-request-editor demo</title>
-    <script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../../web-animations-js/web-animations-next.min.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/web-animations-js/web-animations-next.min.js"></script>
+    <script type="module" src="../node_modules/@advanced-rest-client/arc-demo-helper/arc-demo-helper.js"></script>
 
-    <script type="module">
-      import '../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-      import '../../../@polymer/polymer/lib/elements/dom-bind.js';
-      import '../../../@api-components/raml-aware/raml-aware.js';
-      import '../../../@polymer/paper-styles/typography.js';
-      import '../../../@polymer/paper-styles/shadow.js';
-      import '../../../@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-      import '../../../@polymer/paper-item/paper-item.js';
-      import '../../../@polymer/paper-listbox/paper-listbox.js';
-      import '../../../@api-components/api-navigation/api-navigation.js';
-      import '../../../@api-components/api-console-default-theme/api-console-default-theme.js';
-      import '../../../@api-components/raml-aware/raml-aware.js';
-    </script>
+    <style>
+    [role="main"] {
+      max-width: 1100px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
 
-    <script type="module" src="../api-annotation-document.js"></script>
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      [role="main"] {
-        max-width: 1100px;
-        @apply --layout-horizontal;
-        @apply --layout-start;
-      }
+    api-navigation {
+      width: 320px;
+      min-width: 320px;
+      overflow: auto;
+    }
 
-      api-navigation {
-        width: 320px;
-        min-width: 320px;
-        overflow: auto;
-      }
+    api-annotation-document {
+      margin-left: 40px;
+      flex: 1;
+      flex-basis: 0.000000001px;
+    }
 
-      api-annotation-document {
-        margin-left: 40px;
-        @apply --layout-flex;
-      }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
+    header {
+      padding: 12px 24px;
+      background-color: #C5E1A5;
+      --iron-icon-fill-color: #3E2723;
+      --paper-input-container-focus-color: #33691E;
 
-      header {
-        padding: 12px 24px;
-        background-color: #C5E1A5;
-        --iron-icon-fill-color: #3E2723;
-        --paper-input-container-focus-color: #33691E;
-        --paper-input-container-label: {
-          color: #3E2723;
-        };
-        @apply --layout-horizontal;
-        @apply --layout-center;
-      }
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      --paper-input-container-label: {
+        color: #3E2723;
+      };
+    }
+    </style>
 
-      .spacer {
-        @apply --layout-flex;
-      }
-      </style>
-    </custom-style>
   </head>
   <body>
-    <dom-bind id="demo">
-      <template is="dom-bind">
-        <header>
-          <paper-dropdown-menu label="Select demo endpoint">
-            <paper-listbox slot="dropdown-content" id="enpointsList" on-selected-changed="_apiChanged">
-              <paper-item data-src="demo-api.json">Demo api</paper-item>
-              <paper-item data-src="demo-api-compact.json">Demo api - compact version</paper-item>
-            </paper-listbox>
-          </paper-dropdown-menu>
-          <div class="spacer"></div>
-        </header>
-        <raml-aware raml="{{amfModel}}" scope="model"></raml-aware>
-        <div class="centered" role="main">
-          <api-navigation aware="model" types-opened=""></api-navigation>
-          <template is="dom-if" if="[[hasType]]">
-            <api-annotation-document amf-model="[[amfModel]]" shape="[[shape]]"></api-annotation-document>
-          </template>
-          <template is="dom-if" if="[[!hasType]]">
-            <p>Select type in the navigation to see the demo.</p>
-          </template>
-        </div>
-        <demo-element id="helper" amf-model="{{amfModel}}"></demo-element>
-      </template>
-    </dom-bind>
-    <script type="module">
-    import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-    import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
-    (function(app) {
-      app.hasType = false;
-
-      app._load = function() {
-        class DemoElement extends AmfHelperMixin(PolymerElement) {}
-        window.customElements.define('demo-element', DemoElement);
-        document.getElementById('enpointsList').selected = 0;
-      };
-
-      app._loadFile = function(file) {
-        fetch('./' + file)
-        .then((response) => response.json())
-        .then((data) => {
-          app.amfModel = data;
-        });
-      };
-
-      app._apiChanged = function(e) {
-        const file = e.target.selectedItem.dataset.src;
-        app._loadFile(file);
-      };
-
-      app._navChanged = function(e) {
-        const type = e.detail.type;
-        if (type === 'type') {
-          app.setTypeData(e.detail.selected);
-          app.hasType = true;
-        } else {
-          app.hasType = false;
-        }
-      };
-
-      app.setTypeData = function(id) {
-        const declares = app.$.helper._computeDeclares(app.amfModel);
-        const type = declares.find((item) => item['@id'] === id);
-        if (!type) {
-          console.error('Type not found');
-          return;
-        }
-        app.shape = type;
-      };
-
-      window.addEventListener('WebComponentsReady', () => app._load());
-      window.addEventListener('api-navigation-selection-changed', app._navChanged);
-    })(document.getElementById('demo'));
-    </script>
+    <div id="demo"></div>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

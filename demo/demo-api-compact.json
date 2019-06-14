@@ -205,6 +205,20 @@
 "@type": [
 "sourcemaps:SourceMap"
 ],
+"sourcemaps:declared-element": [
+{
+"sourcemaps:element": [
+{
+"@value": "amf://id#1"
+}
+],
+"sourcemaps:value": [
+{
+"@value": ""
+}
+]
+}
+],
 "sourcemaps:lexical": [
 {
 "sourcemaps:element": [
@@ -217,9 +231,7 @@
 "@value": "[(7,2)-(7,16)]"
 }
 ]
-}
-],
-"sourcemaps:declared-element": [
+},
 {
 "sourcemaps:element": [
 {
@@ -228,7 +240,7 @@
 ],
 "sourcemaps:value": [
 {
-"@value": ""
+"@value": "[(7,2)-(8,0)]"
 }
 ]
 }
@@ -297,6 +309,20 @@
 "@type": [
 "sourcemaps:SourceMap"
 ],
+"sourcemaps:declared-element": [
+{
+"sourcemaps:element": [
+{
+"@value": "amf://id#3"
+}
+],
+"sourcemaps:value": [
+{
+"@value": ""
+}
+]
+}
+],
 "sourcemaps:lexical": [
 {
 "sourcemaps:element": [
@@ -309,9 +335,7 @@
 "@value": "[(8,2)-(8,12)]"
 }
 ]
-}
-],
-"sourcemaps:declared-element": [
+},
 {
 "sourcemaps:element": [
 {
@@ -320,7 +344,7 @@
 ],
 "sourcemaps:value": [
 {
-"@value": ""
+"@value": "[(8,2)-(9,0)]"
 }
 ]
 }
@@ -389,7 +413,9 @@
 {
 "@id": "#9",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -425,7 +451,9 @@
 {
 "@id": "#10",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -461,7 +489,9 @@
 {
 "@id": "#11",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -831,7 +861,9 @@
 {
 "@id": "#17",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -884,7 +916,9 @@
 {
 "@id": "#18",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -1142,7 +1176,9 @@
 {
 "@id": "#21",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -1355,7 +1391,9 @@
 ],
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ErrorResource/deprecated/scalar_1",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -1582,7 +1620,9 @@
 ],
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/notRequiredRepeatable/annotationTest/scalar_1",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -1797,13 +1837,17 @@
 ],
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComplexAnnotations/clearanceLevel/object_1",
 "@type": [
-"data:Object"
+"data:Object",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:level": [
 {
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComplexAnnotations/clearanceLevel/object_1/scalar_2",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -1839,7 +1883,9 @@
 {
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComplexAnnotations/clearanceLevel/object_1/scalar_3",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -1895,12 +1941,36 @@
 {
 "sourcemaps:element": [
 {
+"@value": "data:signature"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(43,17)-(43,33)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
 "@value": "file://demo/demo-api/demo-api.raml#/declarations/types/ComplexAnnotations/clearanceLevel/object_1"
 }
 ],
 "sourcemaps:value": [
 {
 "@value": "[(42,0)-(44,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "data:level"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(42,13)-(42,17)]"
 }
 ]
 }
@@ -2092,7 +2162,9 @@
 ],
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/annotationTest/scalar_1",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -2131,13 +2203,17 @@
 ],
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1",
 "@type": [
-"data:Object"
+"data:Object",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:level": [
 {
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1/scalar_2",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -2173,7 +2249,9 @@
 {
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1/scalar_3",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {
@@ -2229,12 +2307,36 @@
 {
 "sourcemaps:element": [
 {
+"@value": "data:signature"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(52,17)-(52,31)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
 "@value": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/clearanceLevel/object_1"
 }
 ],
 "sourcemaps:value": [
 {
 "@value": "[(51,0)-(53,0)]"
+}
+]
+},
+{
+"sourcemaps:element": [
+{
+"@value": "data:level"
+}
+],
+"sourcemaps:value": [
+{
+"@value": "[(51,13)-(51,16)]"
 }
 ]
 }
@@ -2250,7 +2352,9 @@
 ],
 "@id": "file://demo/demo-api/demo-api.raml#/declarations/types/ComboType/deprecated/scalar_1",
 "@type": [
-"data:Scalar"
+"data:Scalar",
+"data:Node",
+"doc:DomainElement"
 ],
 "data:value": [
 {

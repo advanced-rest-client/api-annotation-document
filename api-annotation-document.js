@@ -1,6 +1,5 @@
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { LitElement, html, css } from 'lit-element';
+import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
 /**
  * `api-annotation-document`
  *
@@ -27,14 +26,11 @@ import {AmfHelperMixin} from '../../@api-components/amf-helper-mixin/amf-helper-
  * @memberof ApiElements
  * @appliesMixin AmfHelperMixin
  */
-export class ApiAnnotationDocument extends AmfHelperMixin(PolymerElement) {
-  static get template() {
-    return html`
-    <style>
-    :host {
+export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
+  static get styles() {
+    return css`:host {
       display: block;
       color: var(--api-annotation-document-color, #616161);
-      @apply --api-annotation-document;
     }
 
     :host([hidden]) {
@@ -55,31 +51,9 @@ export class ApiAnnotationDocument extends AmfHelperMixin(PolymerElement) {
 
     .scalar-value {
       display: block;
-    }
-    </style>
-    <section class="custom-list" role="list">
-      <template is="dom-repeat" items="[[customList]]">
-        <div role="listitem" class="custom-prtoperty">
-          <span class="name">[[_computeName(item)]]</span>
-          <template is="dom-if" if="[[_hasValue(item)]]" data-has-value="">
-            <span class="value">
-              <template is="dom-if" if="[[_isScalar(item)]]">
-                <span class="scalar-value">[[_scalarValue(item)]]</span>
-              </template>
-              <template is="dom-if" if="[[!_isScalar(item)]]">
-                <template is="dom-repeat" items="[[_complexValue(item)]]">
-                  <span class="scalar-value">[[item.label]]: [[item.value]]</span>
-                </template>
-              </template>
-            </span>
-          </template>
-        </div>
-      </template>
-    </section>
-`;
+    }`;
   }
 
-  static get is() {return 'api-annotation-document';}
   static get properties() {
     return {
       /**
@@ -88,31 +62,79 @@ export class ApiAnnotationDocument extends AmfHelperMixin(PolymerElement) {
        * key in the property and renders custom properties view if any
        * property is defined.
        */
-      shape: {
-        type: Object,
-        observer: '_shapeChanged'
-      },
+      shape: { type: Object },
       /**
        * Computed value, true if any custom property has been found.
        */
-      hasCustomProperties: {
-        type: Boolean,
-        notify: true,
-        readOnly: true,
-        value: false,
-        observer: '_hasCustomChanged'
-      },
+      hasCustomProperties: { type: Boolean },
       /**
        * List of custom properties in the shape.
        *
        * @type {Array<Object>}
        */
-      customList: {
-        type: Array,
-        readOnly: true
-      }
+      customList: { type: Array }
     };
   }
+
+  get shape() {
+    return this._shape;
+  }
+
+  set shape(value) {
+    const oldValue = this._shape;
+    if (oldValue === value) {
+      return;
+    }
+    this._shape = value;
+    this.requestUpdate('shape', oldValue);
+    this._shapeChanged(value);
+  }
+
+  get hasCustomProperties() {
+    return this.__hasCustomProperties;
+  }
+
+  get _hasCustomProperties() {
+    return this.__hasCustomProperties;
+  }
+
+  set _hasCustomProperties(value) {
+    const oldValue = this.__hasCustomProperties;
+    if (oldValue === value) {
+      return;
+    }
+    this.__hasCustomProperties = value;
+    this._hasCustomChanged(value);
+    this.dispatchEvent(new CustomEvent('has-custom-properties-changed', {
+      composed: true,
+      detail: {
+        value
+      }
+    }));
+  }
+
+  get customList() {
+    return this.__customList;
+  }
+
+  get _customList() {
+    return this.__customList;
+  }
+
+  set _customList(value) {
+    const oldValue = this.__customList;
+    if (oldValue === value) {
+      return;
+    }
+    this.__customList = value;
+    this.requestUpdate('customList', oldValue);
+  }
+
+  constructor() {
+    super();
+    this._hasCustomProperties = false;
+  }
+
   /**
    * Called when the shape property change.
    * Sets `hasCustomProperties` and `customList` properties.
@@ -127,13 +149,13 @@ export class ApiAnnotationDocument extends AmfHelperMixin(PolymerElement) {
     const key = this._getAmfKey(this.ns.raml.vocabularies.document + 'customDomainProperties');
     const custom = this._ensureArray(shape && shape[key]);
     const has = !!(custom && custom.length);
-    this._setHasCustomProperties(has);
+    this._hasCustomProperties = has;
     if (!has) {
       return;
     }
     const keys = custom.map((item) => item['@id']);
     const properties = keys.map((key) => shape[key] || shape['amf://id' + key]);
-    this._setCustomList(properties);
+    this._customList = properties;
   }
   /**
    * Hiddes/shows the element depending on the state
@@ -226,5 +248,40 @@ export class ApiAnnotationDocument extends AmfHelperMixin(PolymerElement) {
     });
     return data;
   }
+
+  _renderItemValue(item) {
+    return html`<span class="value">
+      ${this._isScalar(item) ?
+        html`<span class="scalar-value">${this._scalarValue(item)}</span>` :
+        this._renderItemComplexValue(item)}
+    </span>`;
+  }
+
+  _renderItemComplexValue(item) {
+    const items = this._complexValue(item);
+    if (!items || !items.length) {
+      return;
+    }
+    return items.map((item) => html`<span class="scalar-value">${item.label}: ${item.value}</span>`);
+  }
+
+  _renderItem(item) {
+    return html`
+    <div role="listitem" class="custom-prtoperty">
+      <span class="name">${this._computeName(item)}</span>
+      ${this._hasValue(item) ? this._renderItemValue(item) : undefined}
+    </div>`;
+  }
+
+  render() {
+    const list = this.customList;
+    if (!list || !list.length) {
+      return;
+    }
+    return html`
+    <section class="custom-list" role="list">
+    ${list.map((item) => this._renderItem(item))}
+    </section>`;
+  }
 }
-window.customElements.define(ApiAnnotationDocument.is, ApiAnnotationDocument);
+window.customElements.define('api-annotation-document', ApiAnnotationDocument);
