@@ -12,6 +12,10 @@
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
+import {LitElement, html, css} from 'lit-element';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+
 export {ApiAnnotationDocument};
 
 declare namespace ApiElements {
@@ -52,11 +56,13 @@ declare namespace ApiElements {
      * Computed value, true if any custom property has been found.
      */
     readonly hasCustomProperties: boolean|null|undefined;
+    _hasCustomProperties: any;
 
     /**
      * List of custom properties in the shape.
      */
     readonly customList: Array<object|null>|null;
+    _customList: any;
 
     /**
      * Called when the shape property change.
@@ -105,6 +111,10 @@ declare namespace ApiElements {
      * @param item AMF custom property definition
      */
     _complexValue(item: object|null): object|null;
+    _renderItemValue(item: any): any;
+    _renderItemComplexValue(item: any): any;
+    _renderItem(item: any): any;
+    render(): any;
   }
 }
 
