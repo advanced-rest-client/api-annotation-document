@@ -50,10 +50,10 @@ class SampleElement extends LitElement {
 customElements.define('sample-element', SampleElement);
 ```
 
-### Installation
+### Development
 
 ```sh
-git clone https://github.com/api-components/api-annotation-document
+git clone https://github.com/advanced-rest-client/api-annotation-document
 cd api-annotation-document
 npm install
 ```
