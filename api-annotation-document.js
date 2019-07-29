@@ -51,6 +51,11 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
 
     .scalar-value {
       display: block;
+    }
+
+    .custom-list {
+      padding: 0;
+      list-style: none;
     }`;
   }
 
@@ -267,10 +272,10 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
 
   _renderItem(item) {
     return html`
-    <div role="listitem" class="custom-prtoperty">
+    <li class="custom-prtoperty">
       <span class="name">${this._computeName(item)}</span>
       ${this._hasValue(item) ? this._renderItemValue(item) : undefined}
-    </div>`;
+    </li>`;
   }
 
   render() {
@@ -279,9 +284,9 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
       return;
     }
     return html`
-    <section class="custom-list" role="list">
-    ${list.map((item) => this._renderItem(item))}
-    </section>`;
+    <ul class="custom-list">
+      ${list.map((item) => this._renderItem(item))}
+    </ul>`;
   }
 }
 window.customElements.define('api-annotation-document', ApiAnnotationDocument);
