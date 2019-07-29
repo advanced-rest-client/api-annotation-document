@@ -8,7 +8,7 @@ describe('<api-annotation-document>', () => {
   }
 
   function getType(element, name) {
-    const declares = element._computeDeclares(element.amfModel);
+    const declares = element._computeDeclares(element.amf);
     for (let i = 0, len = declares.length; i < len; i++) {
       const typeName = element._getValue(declares[i], element.ns.w3.shacl.name + 'name');
       if (typeName && name === typeName) {
@@ -16,6 +16,25 @@ describe('<api-annotation-document>', () => {
       }
     }
   }
+
+  describe('a11y', () => {
+    let element;
+    let amf;
+    before(async () => {
+      amf = await AmfLoader.load();
+    });
+
+    beforeEach(async () => {
+      element = await basicFixture();
+      element.amf = amf;
+      element.shape = getType(element, 'ComplexAnnotations');
+      await nextFrame();
+    });
+
+    it('is accessible', async () => {
+      await assert.isAccessible(element);
+    });
+  });
 
   [
     ['Full data model', false],
@@ -31,7 +50,7 @@ describe('<api-annotation-document>', () => {
         let element;
         beforeEach(async () => {
           element = await basicFixture();
-          element.amfModel = amfModel;
+          element.amf = amfModel;
         });
 
         it('Computes hasCustomProperties when no annotations', () => {
