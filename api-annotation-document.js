@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+import { infoOutline } from '@advanced-rest-client/arc-icons/ArcIcons.js';
 /**
  * `api-annotation-document`
  *
@@ -21,7 +22,6 @@ import { AmfHelperMixin } from '@api-components/amf-helper-mixin/amf-helper-mixi
  * `--api-annotation-document-color` | Color of the custom property (annotation) documentation | `#616161`
  *
  * @customElement
- * @polymer
  * @demo demo/index.html
  * @memberof ApiElements
  * @appliesMixin AmfHelperMixin
@@ -37,11 +37,16 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
       display: none;
     }
 
-    .custom-prtoperty {
-      margin: 12px 0;
+    .custom-property {
+      border-left: 3px var(--api-annotation-accent-color, #1976D2) solid;
+      border-radius: 2px;
+      background-color: var(--api-annotation-background-color, #F5F7F9);
+      padding: 16px 0;
+      margin: 20px 0;
+      display: flex;
     }
 
-    .custom-prtoperty > span {
+    .custom-property > span {
       display: block;
     }
 
@@ -51,11 +56,20 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
 
     .scalar-value {
       display: block;
+      margin-top: 3px;
     }
 
     .custom-list {
       padding: 0;
+      margin: 0;
       list-style: none;
+    }
+
+    .info-icon {
+      margin: 0 12px;
+      fill: var(--api-annotation-accent-color, #1976D2);
+      width: 24px;
+      height: 24px;
     }`;
   }
 
@@ -135,9 +149,13 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     this.requestUpdate('customList', oldValue);
   }
 
-  constructor() {
-    super();
-    this._hasCustomProperties = false;
+  connectedCallback() {
+    if (super.connectedCallback) {
+      super.connectedCallback();
+    }
+    if (this._hasCustomProperties === undefined) {
+      this._hasCustomProperties = false;
+    }
   }
 
   /**
@@ -151,7 +169,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
    * @param {Object} shape AMF shape or range property.
    */
   _shapeChanged(shape) {
-    const key = this._getAmfKey(this.ns.raml.vocabularies.document + 'customDomainProperties');
+    const key = this._getAmfKey(this.ns.aml.vocabularies.document.customDomainProperties);
     const custom = this._ensureArray(shape && shape[key]);
     const has = !!(custom && custom.length);
     this._hasCustomProperties = has;
@@ -181,7 +199,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
   }
 
   _computeName(item) {
-    return this._getValue(item, this.ns.raml.vocabularies.document + 'name');
+    return this._getValue(item, this.ns.aml.vocabularies.document.name);
   }
   /**
    * Tests if custom propery can have value.
@@ -193,7 +211,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     if (!this._isScalar(item)) {
       return true;
     }
-    const key = this._getAmfKey(this.ns.raml.vocabularies.data + 'value');
+    const key = this._getAmfKey(this.ns.aml.vocabularies.data.value);
     let value = item && item[key];
     if (!value) {
       return false;
@@ -201,7 +219,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     if (value instanceof Array) {
       value = value[0];
     }
-    return !this._hasType(value, this.ns.w3.xmlSchema + 'nil');
+    return !this._hasType(value, this.ns.w3.xmlSchema.nil);
   }
   /**
    * Tests if value is a scalar value
@@ -210,7 +228,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
    * @return {Boolean}
    */
   _isScalar(item) {
-    return this._hasType(item, this.ns.raml.vocabularies.data + 'Scalar');
+    return this._hasType(item, this.ns.aml.vocabularies.data.Scalar);
   }
   /**
    * Computes scalar value for the item.
@@ -222,7 +240,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     if (item instanceof Array) {
       item = item[0];
     }
-    return this._getValue(item, this.ns.raml.vocabularies.data + 'value');
+    return this._getValue(item, this.ns.aml.vocabularies.data.value);
   }
   /**
    * Computes complex (object) value for the custom property
@@ -235,7 +253,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
       return;
     }
     const data = [];
-    const dataKey = this._getAmfKey(this.ns.raml.vocabularies.data);
+    const dataKey = this._getAmfKey(this.ns.raml.vocabularies.data + '');
     const len = dataKey.length;
     Object.keys(item).forEach((key) => {
       if (key.indexOf(dataKey) === -1) {
@@ -255,27 +273,41 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
   }
 
   _renderItemValue(item) {
+    const isScalar = this._isScalar(item);
+    const value = isScalar ? this._scalarValue(item) : this._renderItemComplexValue(item);
+    if (!value || value === 'nil') {
+      return '';
+    }
     return html`<span class="value">
-      ${this._isScalar(item) ?
-        html`<span class="scalar-value">${this._scalarValue(item)}</span>` :
-        this._renderItemComplexValue(item)}
+      ${isScalar ?
+        html`<span class="scalar-value">${value}</span>` :
+        value}
     </span>`;
   }
 
   _renderItemComplexValue(item) {
     const items = this._complexValue(item);
     if (!items || !items.length) {
-      return;
+      return '';
     }
     return items.map((item) => html`<span class="scalar-value">${item.label}: ${item.value}</span>`);
   }
 
   _renderItem(item) {
+    const hasValue = this._hasValue(item);
+    const name = this._computeName(item);
+    const value = hasValue ? this._renderItemValue(item) : '';
+    if (!name && !value) {
+      return '';
+    }
     return html`
-    <li class="custom-prtoperty">
-      <span class="name">${this._computeName(item)}</span>
-      ${this._hasValue(item) ? this._renderItemValue(item) : undefined}
-    </li>`;
+    <div class="custom-property">
+      <div class="info-icon">${infoOutline}</div>
+      <div class="info-value">
+        ${name ? html`<span class="name">${name}</span>` : ''}
+        ${value}
+      </div>
+    </div>`;
   }
 
   render() {
@@ -283,10 +315,8 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     if (!list || !list.length) {
       return;
     }
-    return html`
-    <ul class="custom-list">
-      ${list.map((item) => this._renderItem(item))}
-    </ul>`;
+    const items = list.map((item) => this._renderItem(item));
+    return html`${items}`;
   }
 }
 window.customElements.define('api-annotation-document', ApiAnnotationDocument);

@@ -30,10 +30,20 @@ export class DemoPage extends ApiDemoPageBase {
     this._setObservableProperty('shape', value);
   }
 
+  get helper() {
+    return document.getElementById('helper');
+  }
+
   _navChanged(e) {
     const { selected, type } = e.detail;
     if (type === 'type') {
       this.setTypeData(selected);
+      this.hasData = true;
+    } else if (type === 'endpoint') {
+      this.setEndpointData(selected);
+      this.hasData = true;
+    } else if (type === 'method') {
+      this.setMethodData(selected);
       this.hasData = true;
     } else {
       this.hasData = false;
@@ -49,6 +59,32 @@ export class DemoPage extends ApiDemoPageBase {
     }
     this.shape = type;
   }
+
+  setEndpointData(id) {
+    const helper = this.helper;
+    helper.amf = this.amf;
+    const webApi = helper._computeWebApi(this.amf);
+    this.shape = helper._computeEndpointModel(webApi, id);
+  }
+
+  setMethodData(id) {
+    const helper = this.helper;
+    helper.amf = this.amf;
+    const webApi = helper._computeWebApi(this.amf);
+    this.shape = helper._computeMethodModel(webApi, id);
+  }
+
+  _apiListTemplate() {
+    return [
+      ['demo-api', 'Demo API'],
+      ['nill-annotation', 'Nil annotation'],
+      ['spec-api', 'spec-api'],
+    ].map(([file, label]) => html`
+      <paper-item data-src="${file}-compact.json">${label} - compact model</paper-item>
+      <paper-item data-src="${file}.json">${label}</paper-item>
+      `);
+  }
+
 
   contentTemplate() {
     return html`

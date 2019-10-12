@@ -1,0 +1,13 @@
+#%RAML 1.0
+title: Annotation API
+version: v1
+baseUri: http://api.domain.com/
+
+annotationTypes:
+  annotationTest: nil
+types:
+  nilAnnotationType:
+    (annotationTest):
+    type: object
+    properties:
+      test: boolean

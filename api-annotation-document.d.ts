@@ -63,6 +63,7 @@ declare namespace ApiElements {
      */
     readonly customList: Array<object|null>|null;
     _customList: any;
+    connectedCallback(): void;
 
     /**
      * Called when the shape property change.

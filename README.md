@@ -8,9 +8,10 @@
 
 An element to render RAML annotations based on AMF data model.
 
-### API components
+## Version compatibility
 
-This components is a part of [API components ecosystem](https://elements.advancedrestclient.com/)
+This version only works with AMF model version 2 (AMF parser >= 4.0.0).
+For compatibility with previous model version use `3.x.x` version of the component.
 
 ## Usage
 
@@ -50,7 +51,7 @@ class SampleElement extends LitElement {
 customElements.define('sample-element', SampleElement);
 ```
 
-### Development
+## Development
 
 ```sh
 git clone https://github.com/advanced-rest-client/api-annotation-document

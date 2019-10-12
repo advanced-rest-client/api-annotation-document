@@ -1,3 +1,5 @@
 {
-  "demo-api/demo-api.raml": "RAML 1.0"
+  "demo-api/demo-api.raml": "RAML 1.0",
+  "nill-annotation/nill-annotation.raml": "RAML 1.0",
+  "spec-api/spec-api.raml": "RAML 1.0"
 }
