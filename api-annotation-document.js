@@ -27,7 +27,7 @@ import { infoOutline } from '@advanced-rest-client/arc-icons/ArcIcons.js';
  * @appliesMixin AmfHelperMixin
  */
 export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
-  static get styles() {
+  get styles() {
     return css`:host {
       display: block;
       color: var(--api-annotation-document-color, #616161);
@@ -300,7 +300,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     if (!name && !value) {
       return '';
     }
-    return html`
+    return html`<style>${this.styles}</style>
     <div class="custom-property">
       <div class="info-icon">${infoOutline}</div>
       <div class="info-value">
