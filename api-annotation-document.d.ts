@@ -5,13 +5,18 @@
  *   https://github.com/Polymer/tools/tree/master/packages/gen-typescript-declarations
  *
  * To modify these typings, edit the source file(s):
- *   api-annotation-document.html
+ *   api-annotation-document.js
  */
 
-/// <reference path="../polymer/types/polymer-element.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-repeat.d.ts" />
-/// <reference path="../polymer/types/lib/elements/dom-if.d.ts" />
-/// <reference path="../amf-helper-mixin/amf-helper-mixin.d.ts" />
+
+// tslint:disable:variable-name Describing an API that's defined elsewhere.
+// tslint:disable:no-any describes the API as best we are able today
+
+import {LitElement, html, css} from 'lit-element';
+
+import {AmfHelperMixin} from '@api-components/amf-helper-mixin/amf-helper-mixin.js';
+
+export {ApiAnnotationDocument};
 
 declare namespace ApiElements {
 
@@ -36,7 +41,7 @@ declare namespace ApiElements {
    * `--api-annotation-document-color` | Color of the custom property (annotation) documentation | `#616161`
    */
   class ApiAnnotationDocument extends
-    ApiElements.AmfHelperMixin(
+    AmfHelperMixin(
     Object) {
 
     /**
@@ -51,11 +56,14 @@ declare namespace ApiElements {
      * Computed value, true if any custom property has been found.
      */
     readonly hasCustomProperties: boolean|null|undefined;
+    _hasCustomProperties: any;
 
     /**
      * List of custom properties in the shape.
      */
     readonly customList: Array<object|null>|null;
+    _customList: any;
+    connectedCallback(): void;
 
     /**
      * Called when the shape property change.
@@ -104,9 +112,16 @@ declare namespace ApiElements {
      * @param item AMF custom property definition
      */
     _complexValue(item: object|null): object|null;
+    _renderItemValue(item: any): any;
+    _renderItemComplexValue(item: any): any;
+    _renderItem(item: any): any;
+    render(): any;
   }
 }
 
-interface HTMLElementTagNameMap {
-  "api-annotation-document": ApiElements.ApiAnnotationDocument;
+declare global {
+
+  interface HTMLElementTagNameMap {
+    "api-annotation-document": ApiElements.ApiAnnotationDocument;
+  }
 }
