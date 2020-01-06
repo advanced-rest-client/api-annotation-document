@@ -20,6 +20,8 @@ For compatibility with previous model version use `3.x.x` version of the compone
 npm install --save @api-components/api-annotation-document
 ```
 
+The element requires to set the `amf` property with the full generated AMF model to properly resolve compact JSON model. It also requires to set the `shape` property to whatever API property being currently documented (endpoint, method, type (including properties of a type which is also a type), security, security settings, and so on).
+
 ### In an html file
 
 ```html
@@ -31,6 +33,15 @@ npm install --save @api-components/api-annotation-document
   </head>
   <body>
     <api-annotation-document></api-annotation-document>
+    <script>
+    {
+      const model = await getAmfModelSomehow();
+      const shape = computeCurrentShape(model, someId);
+      const aad = document.querySelector('api-annotation-document');
+      aad.amf = model;
+      aad.shape = shape;
+    }
+    </script>
   </body>
 </html>
 ```
@@ -44,7 +55,10 @@ import '@api-components/api-annotation-document/api-annotation-document.js';
 class SampleElement extends LitElement {
   render() {
     return html`
-    <api-annotation-document></api-annotation-document>
+    <api-annotation-document
+      .amf="${this.model}"
+      .shape="${this.shape}"
+    ></api-annotation-document>
     `;
   }
 }
