@@ -168,3 +168,33 @@
  [22c3312](https://github.com/advanced-rest-client/api-annotation-document/commit/22c3312144a3fd85c71e83b89de470f3c0349494) by Pawel Psztyc
 
 
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/advanced-rest-client/api-annotation-document/compare/4.0.1...4.0.3) (2020-02-18)
+
+### Build
+
+* bumping version [a5b6e2d](https://github.com/advanced-rest-client/api-annotation-document/commit/a5b6e2dfb20008c27264d6e11d0a8c6100a56723) by Pawel Psztyc
+
+
+### Update
+
+* [ci skip] automated merge master->stage. syncing main branches [417d10f](https://github.com/advanced-rest-client/api-annotation-document/commit/417d10fc4e7536ad26a2f1df008c9732d702b589) by Ci agent
+* updating dependencies [8dfd5ae](https://github.com/advanced-rest-client/api-annotation-document/commit/8dfd5ae6e94c8000e0fbc32b8ab38089a1f25f00) by Pawel Psztyc
+
+
+### Documentation
+
+* updating deadme file [53c174f](https://github.com/advanced-rest-client/api-annotation-document/commit/53c174f48b8f7364869de13d812721ccf34d0ce7) by Pawel Psztyc
+* fixing demo page title [71d1478](https://github.com/advanced-rest-client/api-annotation-document/commit/71d147849e9882934da9e88b47cf29bb7fde5b04) by Pawel Psztyc
+
+
+### Bug Fixes
+
+* lookup values in array customDomainProperties (#3) [bump-version] [db47105](https://github.com/advanced-rest-client/api-annotation-document/commit/db4710527e2623492baeab38820d48674c0226ce) by Nicolas Schejtman
+
+
+### Testing
+
+* updating SL configuration [99f8b76](https://github.com/advanced-rest-client/api-annotation-document/commit/99f8b76ef09d6cc39541cd8298ba8284d9b9e9fb) by Pawel Psztyc
+
+
