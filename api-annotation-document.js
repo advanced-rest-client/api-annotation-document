@@ -158,6 +158,10 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     }
   }
 
+  ensureObject(value) {
+    return (value instanceof Array) ? value[0] : value;
+  }
+
   /**
    * Called when the shape property change.
    * Sets `hasCustomProperties` and `customList` properties.
@@ -177,7 +181,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
       return;
     }
     const keys = custom.map((item) => item['@id']);
-    const properties = keys.map((key) => shape[key] || shape['amf://id' + key]);
+    const properties = keys.map((key) => this.ensureObject(shape[key] || shape['amf://id' + key]));
     this._customList = properties;
   }
   /**
