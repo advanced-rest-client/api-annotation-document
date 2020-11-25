@@ -70,7 +70,7 @@ describe('<api-annotation-document>', () => {
         });
 
         // APIMF-1710
-        it.skip('Renders nil annotation', async () => {
+        it('Renders nil annotation', async () => {
           element.shape = getType(element, 'notRequiredRepeatable');
           await nextFrame();
           const node = element.shadowRoot.querySelectorAll('.custom-property')[0];
@@ -81,13 +81,6 @@ describe('<api-annotation-document>', () => {
           assert.equal(labelValue, 'annotationtest');
         });
 
-        // APIMF-1710
-        it('ignores annotation that has no name and value', async () => {
-          element.shape = getType(element, 'notRequiredRepeatable');
-          await nextFrame();
-          const node = element.shadowRoot.querySelectorAll('.custom-property')[0];
-          assert.notOk(node);
-        });
         // APIMF-1710
         it.skip('Nil annotation does not have value', async () => {
           element.shape = getType(element, 'notRequiredRepeatable');

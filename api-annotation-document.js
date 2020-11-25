@@ -203,7 +203,7 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
   }
 
   _computeName(item) {
-    return this._getValue(item, this.ns.aml.vocabularies.document.name);
+    return this._getValue(item, this.ns.aml.vocabularies.core.extensionName);
   }
   /**
    * Tests if custom propery can have value.
@@ -301,14 +301,11 @@ export class ApiAnnotationDocument extends AmfHelperMixin(LitElement) {
     const hasValue = this._hasValue(item);
     const name = this._computeName(item);
     const value = hasValue ? this._renderItemValue(item) : '';
-    if (!name && !value) {
-      return '';
-    }
     return html`<style>${this.styles}</style>
     <div class="custom-property">
       <div class="info-icon">${infoOutline}</div>
       <div class="info-value">
-        ${name ? html`<span class="name">${name}</span>` : ''}
+        <span class="name">${name}</span>
         ${value}
       </div>
     </div>`;
