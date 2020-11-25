@@ -198,3 +198,17 @@
 * updating SL configuration [99f8b76](https://github.com/advanced-rest-client/api-annotation-document/commit/99f8b76ef09d6cc39541cd8298ba8284d9b9e9fb) by Pawel Psztyc
 
 
+<a name="4.1.0"></a>
+## [4.1.0](https://github.com/advanced-rest-client/api-annotation-document/compare/4.0.2...4.1.0) (2020-11-25)
+
+### Update
+
+* [ci skip] automated merge master->stage. syncing main branches [e5db535](https://github.com/advanced-rest-client/api-annotation-document/commit/e5db535d3dcc2f1916506fb1ef3d287e106df7c8) by Ci agent
+* [ci skip] automated merge master->stage. syncing main branches [417d10f](https://github.com/advanced-rest-client/api-annotation-document/commit/417d10fc4e7536ad26a2f1df008c9732d702b589) by Ci agent
+
+
+### Bug Fixes
+
+* lookup values in array customDomainProperties (#3) [bump-version] [db47105](https://github.com/advanced-rest-client/api-annotation-document/commit/db4710527e2623492baeab38820d48674c0226ce) by Nicolas Schejtman
+
+
