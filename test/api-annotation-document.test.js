@@ -32,8 +32,8 @@ describe('<api-annotation-document>', () => {
       await nextFrame();
     });
 
-    it('is accessible', async () => {
-      await assert.isAccessible(element);
+    it('is accessible', () => {
+      assert.isAccessible(element);
     });
   });
 
