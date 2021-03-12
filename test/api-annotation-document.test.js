@@ -2,10 +2,15 @@ import { fixture, assert, nextFrame, html } from '@open-wc/testing';
 import { AmfLoader } from './amf-loader.js';
 import '../api-annotation-document.js';
 
-describe('<api-annotation-document>', () => {
+/** @typedef {import('../').ApiAnnotationDocumentElement} ApiAnnotationDocumentElement */
+
+describe('ApiAnnotationDocumentElement', () => {
+  /**
+   * @param {any} amf
+   * @returns {Promise<ApiAnnotationDocumentElement>}
+   */
   async function basicFixture(amf) {
-    return (await fixture(html`
-      <api-annotation-document .amf="${amf}"></api-annotation-document>`));
+    return fixture(html`<api-annotation-document .amf="${amf}"></api-annotation-document>`);
   }
 
   function getType(element, name) {
@@ -16,10 +21,11 @@ describe('<api-annotation-document>', () => {
         return declares[i];
       }
     }
+    return undefined;
   }
 
   describe('a11y', () => {
-    let element;
+    let element = /** @type ApiAnnotationDocumentElement */ (null);
     let amf;
     before(async () => {
       amf = await AmfLoader.load();
@@ -32,8 +38,8 @@ describe('<api-annotation-document>', () => {
       await nextFrame();
     });
 
-    it('is accessible', () => {
-      assert.isAccessible(element);
+    it('is accessible', async () => {
+      await assert.isAccessible(element);
     });
   });
 
@@ -41,7 +47,7 @@ describe('<api-annotation-document>', () => {
     ['Full data model', false],
     ['Compact model', true]
   ].forEach((item) => {
-    describe(item[0], () => {
+    describe(String(item[0]), () => {
       describe('Model computations', () => {
         let amfModel;
         before(async () => {
