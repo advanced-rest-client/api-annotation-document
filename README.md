@@ -1,12 +1,10 @@
-[![Published on NPM](https://img.shields.io/npm/v/@api-components/api-annotation-document.svg)](https://www.npmjs.com/package/@api-components/api-annotation-document)
-
-[![Build Status](https://travis-ci.org/advanced-rest-client/api-annotation-document.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/api-annotation-document)
-
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@advanced-rest-client/api-annotation-document)
-
-## api-annotation-document
+# api-annotation-document
 
 An element to render RAML annotations based on AMF data model.
+
+[![Published on NPM](https://img.shields.io/npm/v/@api-components/api-annotation-document.svg)](https://www.npmjs.com/package/@api-components/api-annotation-document)
+
+[![Tests and publishing](https://github.com/advanced-rest-client/api-annotation-document/actions/workflows/deployment.yml/badge.svg)](https://github.com/advanced-rest-client/api-annotation-document/actions/workflows/deployment.yml)
 
 ## Version compatibility
 
@@ -16,7 +14,8 @@ For compatibility with previous model version use `3.x.x` version of the compone
 ## Usage
 
 ### Installation
-```
+
+```sh
 npm install --save @api-components/api-annotation-document
 ```
 
@@ -80,6 +79,7 @@ npm start
 ```
 
 ### Running the tests
+
 ```sh
 npm test
 ```
