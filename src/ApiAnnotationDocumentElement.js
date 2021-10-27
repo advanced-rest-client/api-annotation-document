@@ -131,8 +131,16 @@ export class ApiAnnotationDocumentElement extends AmfHelperMixin(LitElement) {
     if (!has) {
       return;
     }
-    const keys = custom.map((item) => item['@id']);
-    const properties = keys.map((k) => this.ensureObject(shape[k] || shape[`amf://id${k}`]));
+
+    const idKey = this._getAmfKey('amf://id');
+    const properties = custom.map((item) => {
+      const k = item['@id'];
+      const name = this._computeName(item);
+      const nameKey = this._getAmfKey(this.ns.aml.vocabularies.core.extensionName);
+      const object = this.ensureObject(shape[k] || shape[`amf://id${k}`] || shape[`${idKey}:${k}`])
+      object[nameKey] = object[nameKey] || name;
+      return object;
+    });
     this._customList = properties;
   }
 
